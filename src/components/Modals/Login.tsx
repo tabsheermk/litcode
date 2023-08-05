@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 type LoginProps = {};
 
@@ -39,12 +40,21 @@ const Login: React.FC<LoginProps> = () => {
       if (!user) return;
       router.push("/");
     } catch (error: any) {
-      alert(error.message);
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "dark",
+      });
     }
   };
 
   useEffect(() => {
-    if (error) alert(error.message);
+    if (error)
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "dark",
+      });
   }, [error]);
 
   return (
